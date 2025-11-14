@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <title>DOKTERTECNO - Servis Elektronik Tanpa Khawatir</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <div class="brand" onclick="navigateTo('#/')">
+        <span class="brand-logo">🩺</span>
+        <div class="brand-text">
+          <div class="brand-name">DOKTERTECNO</div>
+          <div class="brand-tagline">Dokter Servis Elektronik Anda</div>
+        </div>
+      </div>
+      <nav class="nav">
+        <button onclick="navigateTo('#/services')">Layanan</button>
+        <button onclick="navigateTo('#/pricing')">Harga</button>
+        <button onclick="navigateTo('#/track')">Tracking</button>
+        <button onclick="navigateTo('#/blog')">Blog</button>
+        <button onclick="navigateTo('#/about')">Tentang</button>
+        <button onclick="navigateTo('#/help')">Bantuan</button>
+        <button onclick="navigateTo('#/membership')">Membership</button>
+      </nav>
+      <div class="nav-right">
+        <button class="btn-ghost" onclick="navigateTo('#/account/login')">Login</button>
+        <button class="btn-primary" onclick="navigateTo('#/booking')">Booking Servis</button>
+      </div>
+    </div>
+  </header>
+
+  <main id="app" class="main">
+    <!-- konten dirender oleh app.js -->
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div>
+        <div class="brand-name">DOKTERTECNO</div>
+        <div class="brand-tagline">Servis Elektronik Tanpa Khawatir.</div>
+      </div>
+      <div>
+        <h4>Navigasi</h4>
+        <ul>
+          <li><a href="#/">Beranda</a></li>
+          <li><a href="#/services">Layanan</a></li>
+          <li><a href="#/pricing">Harga</a></li>
+          <li><a href="#/track">Tracking</a></li>
+          <li><a href="#/blog">Blog</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Bantuan</h4>
+        <ul>
+          <li><a href="#/help">FAQ</a></li>
+          <li><a href="#/help">Pusat Bantungan</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Kontak</h4>
+        <p>WhatsApp: 08xx-xxxx-xxxx</p>
+        <p>Email: support@doktertecno.id</p>
+        <p>Operasional: Medan & sekitarnya</p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      © 2025 DOKTERTECNO. All rights reserved.
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
