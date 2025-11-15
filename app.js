@@ -247,6 +247,118 @@ const B2B_ASSETS_DUMMY = [
   },
 ];
 
+// ----- Teknisi dummy -----
+const TEKNISI = [
+  { 
+    name: "Rifky Anantta", 
+    skill: "Laptop • PC • OS Troubleshooting", 
+    rating: 5,
+    photo: "teknisigacor31413.jpeg"
+  },
+  { 
+    name: "Wira Hutagalung", 
+    skill: "HP • Tablet • LCD & Battery Specialist", 
+    rating: 5,
+    photo: "teknisisgacorrrr2.jpeg"
+  },
+  { 
+    name: "Alfarabi Pratama", 
+    skill: "Printer • Scanner • Mesin Kasir", 
+    rating: 4,
+    photo: "teknisigacorrrr3.jpeg"
+  },
+  { 
+    name: "Ariel Primbro", 
+    skill: "Network • Router • WiFi Setup", 
+    rating: 4,
+    photo: "teknisigacorrr4.jpeg"
+  },
+  { 
+    name: "Queen Bisdig", 
+    skill: "Sound System • Mixer • Mic Wireless", 
+    rating: 5,
+    photo: "teknisigaocorrkaliini.jpeg"
+  },
+  { 
+    name: "ronaldo sihombing", 
+    skill: "AC • Maintenance • Cleaning", 
+    rating: 4,
+    photo: "teknisisgacor2.jpg"
+  },
+  { 
+    name: "goat messii", 
+    skill: "Kamera • Drone • Gimbal Specialist", 
+    rating: 5,
+    photo: "teknisigacorr1.jpg"
+  },
+  { 
+    name: "my bini", 
+    skill: "PC Gaming • Modding • Upgrade", 
+    rating: 4,
+    photo: "download (8).jpg"
+  },
+  { 
+    name: "dimas blum mandi", 
+    skill: "Data Recovery • HDD/SSD", 
+    rating: 5,
+    photo: "teknisigacor331.jpeg"
+  },
+  { 
+    name: "Johan Sitorus", 
+    skill: "Macbook Specialist • Logicboard", 
+    rating: 5,
+    photo: "download (3).jpg"
+  },
+  { 
+    name: "Kairi Nasution", 
+    skill: "Laptop Tipis • Ultrabook • Keyboard", 
+    rating: 4,
+    photo: "WhatsApp Image 2025-11-15 at 17.44.35.jpeg"
+  },
+  { 
+    name: "hansohee", 
+    skill: "HP Mid–High End • Kamera & Storage", 
+    rating: 5,
+    photo: "download (9).jpg"
+  },
+  { 
+    name: "jihyo", 
+    skill: "CCTV • NVR • Sistem Keamanan", 
+    rating: 4,
+    photo: "download (11).jpg"
+  },
+  { 
+    name: "Tzuyu", 
+    skill: "Panel Listrik Ringan • Stabilizer", 
+    rating: 4,
+    photo: "download (14).jpg"
+  },
+  { 
+    name: "Seolhyun", 
+    skill: "Konfigurasi Jaringan Kantor • SMB", 
+    rating: 5,
+    photo: "images (1).jpg"
+  },
+  { 
+    name: "Sana", 
+    skill: "Projector • Layar Presentasi • Meeting Room", 
+    rating: 4,
+    photo: "download (13).jpg"
+  },
+  { 
+    name: "Rose", 
+    skill: "Smart TV • STB • Konsol Game", 
+    rating: 5,
+    photo: "download (17).jpg"
+  },
+  { 
+    name: "chaeyoung", 
+    skill: "Perangkat Kasir All-in-One • POS", 
+    rating: 4,
+    photo: "images (2).jpg"
+  },
+];
+
 // ==========================
 // LOCAL STORAGE HELPERS
 // ==========================
@@ -302,7 +414,12 @@ function generateReferralCode(name) {
 // ==========================
 
 function navigateTo(hash) {
-  window.location.hash = hash;
+  // boleh kirim 'services' atau '#/services'
+  if (hash.startsWith("#")) {
+    window.location.hash = hash;
+  } else {
+    window.location.hash = "#/" + hash;
+  }
 }
 
 function getRouteParts() {
@@ -399,10 +516,10 @@ function renderHome() {
             sound system, hingga AC ruangan — dengan layanan transparan, aman, dan praktis.
           </p>
           <div class="hero-actions">
-            <button class="btn-primary" onclick="navigateTo('#/booking')">
-              Pesan Servis Sekarang
+            <button class="btn-primary" onclick="navigateTo('booking')">
+              Booking Servis
             </button>
-            <button class="btn-ghost" onclick="navigateTo('#/services')">
+            <button class="btn-ghost" onclick="navigateTo('services')">
               Lihat Semua Layanan
             </button>
           </div>
@@ -410,7 +527,7 @@ function renderHome() {
             ${
               user
                 ? `Masuk sebagai <strong>${user.name}</strong> · Kode referral Anda: <strong>${user.referralCode}</strong> · <a href="#/account/dashboard">Lihat dashboard</a>`
-                : `Belum punya akun? <a href="#/account/register">Daftar sekarang & dapatkan kode referral pribadi.</a>`
+                : `Belum punya akun? <a href="#/account/register">Daftar sekarang &amp; dapatkan kode referral pribadi.</a>`
             }
           </div>
         </div>
@@ -429,11 +546,11 @@ function renderHome() {
             </tr>
             <tr>
               <td>Diagnosa</td>
-              <td>Teknisi melakukan pengecekan menyeluruh & konfirmasi biaya.</td>
+              <td>Teknisi melakukan pengecekan menyeluruh &amp; konfirmasi biaya.</td>
             </tr>
             <tr>
               <td>Perbaikan</td>
-              <td>Perangkat diperbaiki sesuai SOP & dicatat di sistem.</td>
+              <td>Perangkat diperbaiki sesuai SOP &amp; dicatat di sistem.</td>
             </tr>
             <tr>
               <td>Pengantaran</td>
@@ -442,6 +559,26 @@ function renderHome() {
           </table>
         </div>
       </div>
+
+      <!-- SECTION VIDEO DEMO -->
+      <section class="page-section video-header-centered">
+        <div class="page-header header-with-cta">
+        
+          <div>
+            <h2 class="page-title">"Kami menangani masalah elektronik anda sampai ke AKAR-AKARNYA"</h2>
+        
+          </div>
+        </div>
+
+        <div class="hero-video-wrapper">
+          <video
+            src="WhatsApp Video 2025-11-15 at 18.47.05.mp4"
+            controls
+            playsinline
+          ></video>
+        </div>
+      </section>
+
 
       <section class="page-section">
         <div class="page-header">
@@ -466,7 +603,7 @@ function renderHome() {
                 <ul class="list">
                   ${s.issues.slice(0, 3).map((i) => `<li>${i}</li>`).join("")}
                 </ul>
-                <button class="btn-ghost" onclick="navigateTo('#/services/${s.slug}')">
+                <button class="btn-ghost" onclick="navigateTo('services/${s.slug}')">
                   Detail layanan →
                 </button>
               </div>
@@ -505,7 +642,39 @@ function renderHome() {
           ).join("")}
         </div>
       </section>
-    </section>
+
+      <!-- SECTION TEKNISI TERBAIK -->
+     <section class="page-section" style="margin-top:24px;">
+        <div class="page-header">
+          <!-- ROW: Judul + Tombol di sebelah kanan -->
+          <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;">
+            <h2 class="page-title" style="margin-bottom:0;">
+              Teknisi Terbaik DOKTERTECNO
+            </h2>
+            <button class="btn-ghost" onclick="navigateTo('about')">
+              Liat selengkapnya →
+            </button>
+          </div>
+
+          <p class="page-subtitle" style="margin-top:8px;">
+            Lima teknisi dengan rating tertinggi yang sering menangani kasus kritis dan perangkat penting pelanggan.
+          </p>
+        </div>
+
+                <div class="grid grid-3">
+          ${TEKNISI.slice(0, 5).map(t => `
+            <article class="card teknisi-card">
+              <div class="teknisi-photo">
+                <img src="${t.photo}" alt="Foto ${t.name}" />
+              </div>
+              <div class="card-title" style="margin-top:8px;">${t.name}</div>
+              <p class="page-subtitle" style="margin-top:2px;">${t.skill}</p>
+              <p class="rating">${"★".repeat(t.rating)}${"☆".repeat(5 - t.rating)}</p>
+            </article>
+          `).join("")}
+        </div>
+
+      </section>
   `;
 }
 
@@ -517,9 +686,9 @@ function renderServices() {
   return `
     <section class="page">
       <header class="page-header">
-        <h1 class="page-title">Semua Layanan Servis Elektronik</h1>
+        <h1 class="page-title">Semua Layanan Servis</h1>
         <p class="page-subtitle">
-          Pilih kategori perangkat yang ingin Anda servis. DOKTERTECNO menangani berbagai jenis elektronik dengan standar kualitas yang sama.
+          Pilih kategori layanan yang sesuai dengan perangkat Anda, lalu lanjutkan ke booking atau konsultasi.
         </p>
       </header>
 
@@ -528,13 +697,19 @@ function renderServices() {
           (s) => `
           <article class="card">
             <div class="card-header">
-              <div class="card-title">${s.name}</div>
-              <span class="card-tag">${s.category}</span>
+              <div>
+                <div class="card-title">${s.name}</div>
+                <div class="page-subtitle">${s.category}</div>
+              </div>
+              <span class="card-tag">Tersedia</span>
             </div>
             <div class="card-body">
               <p>${s.description}</p>
-              <button class="btn-ghost" onclick="navigateTo('#/services/${s.slug}')">
-                Lihat detail layanan →
+              <ul class="list">
+                ${s.issues.slice(0, 3).map((i) => `<li>${i}</li>`).join("")}
+              </ul>
+              <button class="btn-primary btn-full" onclick="navigateTo('services/${s.slug}')">
+                Detail layanan →
               </button>
             </div>
           </article>
@@ -590,7 +765,7 @@ function renderServiceDetail(slug) {
             <p class="helper">
               *Harga bersifat estimasi dan dapat berubah setelah diagnosa teknisi.
             </p>
-            <button class="btn-primary btn-full" onclick="navigateTo('#/booking?service=${service.slug}')">
+            <button class="btn-primary btn-full" onclick="navigateTo('booking?service=${service.slug}')">
               Booking servis ${service.name}
             </button>
             <button class="btn-ghost btn-full" onclick="openWhatsApp('Halo DOKTERTECNO, saya ingin konsultasi mengenai ${service.name}.')">
@@ -626,15 +801,15 @@ function renderPricing() {
               <th>Rentang Biaya Jasa (belum termasuk sparepart)</th>
             </tr>
             <tr>
-              <td>HP, Laptop, Tablet & PC</td>
+              <td>HP, Laptop, Tablet &amp; PC</td>
               <td>Rp150.000 – Rp750.000</td>
             </tr>
             <tr>
-              <td>Kamera & Drone</td>
+              <td>Kamera &amp; Drone</td>
               <td>Rp250.000 – Rp2.500.000</td>
             </tr>
             <tr>
-              <td>Perangkat Kantor, Sound & AC Ringan</td>
+              <td>Perangkat Kantor, Sound &amp; AC Ringan</td>
               <td>Rp200.000 – Rp900.000</td>
             </tr>
           </table>
@@ -652,7 +827,7 @@ function renderPricing() {
             DOKTERTECNO menyediakan opsi <strong>Same-Day / Emergency Service</strong>.
           </p>
           <ul class="list">
-            <li>Prioritas penjadwalan pickup & diagnosa.</li>
+            <li>Prioritas penjadwalan pickup &amp; diagnosa.</li>
             <li>Diproses jauh lebih cepat dibanding layanan normal.</li>
             <li>Biaya tambahan penanganan darurat: <strong>Rp100.000 – Rp200.000</strong> di luar jasa servis.</li>
           </ul>
@@ -876,15 +1051,15 @@ function attachTrackingHandler() {
             </div>
             <div class="step">
               <div class="step-index">3</div>
-              <div>Perangkat dalam proses diagnosa & estimasi biaya.</div>
+              <div>Perangkat dalam proses diagnosa &amp; estimasi biaya.</div>
             </div>
             <div class="step">
               <div class="step-index">4</div>
-              <div>Perbaikan & quality check oleh teknisi tersertifikasi.</div>
+              <div>Perbaikan &amp; quality check oleh teknisi tersertifikasi.</div>
             </div>
             <div class="step">
               <div class="step-index">5</div>
-              <div>Pengantaran kembali ke alamat pelanggan & aktivasi garansi digital.</div>
+              <div>Pengantaran kembali ke alamat pelanggan &amp; aktivasi garansi digital.</div>
             </div>
           </div>
         </div>
@@ -901,7 +1076,7 @@ function renderBlogList() {
   return `
     <section class="page">
       <header class="page-header">
-        <h1 class="page-title">Blog & Insight</h1>
+        <h1 class="page-title">Blog &amp; Insight</h1>
         <p class="page-subtitle">
           Edukasi, tips perawatan, dan insight seputar perangkat elektronik untuk membantu Anda mengurangi risiko kerusakan berat.
         </p>
@@ -917,7 +1092,7 @@ function renderBlogList() {
             </div>
             <div class="card-body">
               <p>${p.excerpt}</p>
-              <button class="btn-ghost" onclick="navigateTo('#/blog/${p.slug}')">
+              <button class="btn-ghost" onclick="navigateTo('blog/${p.slug}')">
                 Baca selengkapnya →
               </button>
             </div>
@@ -956,6 +1131,7 @@ function renderBlogPost(slug) {
 function renderAbout() {
   return `
     <section class="page">
+      <!-- BAGIAN TENTANG (konten narasi) -->
       <header class="page-header">
         <h1 class="page-title">Tentang DOKTERTECNO</h1>
         <p class="page-subtitle">
@@ -981,12 +1157,36 @@ function renderAbout() {
             <li>Program membership, referral, dan paket UMKM / kantor untuk hubungan jangka panjang.</li>
           </ul>
           <p>
-            Fokus awal kami adalah melayani kota-kota Tier 2 & Tier 3 seperti Medan dan sekitarnya, di mana akses terhadap layanan
+            Fokus awal kami adalah melayani kota-kota Tier 2 &amp; Tier 3 seperti Medan dan sekitarnya, di mana akses terhadap layanan
             servis berkualitas masih terbatas. Ke depan, konsep ini dapat dikembangkan menjadi aplikasi penuh dengan integrasi
             pembayaran digital dan manajemen teknisi yang lebih kompleks.
           </p>
         </div>
       </div>
+
+      <!-- BAGIAN PROFIL TEKNISI LENGKAP (18 ORANG) -->
+      <section class="page-section">
+        <div class="page-header">
+          <h2 class="page-title" style="font-size:18px;">Profil Teknisi DOKTERTECNO</h2>
+          <p class="page-subtitle">
+            Daftar teknisi yang tergabung di DOKTERTECNO (dummy prototipe) dengan beragam keahlian, dari laptop hingga AC dan jaringan kantor.
+          </p>
+        </div>
+
+                <div class="grid grid-3">
+          ${TEKNISI.map(t => `
+            <article class="card teknisi-card">
+              <div class="teknisi-photo">
+                <img src="${t.photo}" alt="Foto ${t.name}" />
+              </div>
+              <div class="card-title" style="margin-top:8px;">${t.name}</div>
+              <p class="page-subtitle" style="margin-top:2px;">${t.skill}</p>
+              <p class="rating">${"★".repeat(t.rating)}${"☆".repeat(5 - t.rating)}</p>
+            </article>
+          `).join("")}
+        </div>
+
+      </section>
     </section>
   `;
 }
@@ -995,7 +1195,7 @@ function renderHelp() {
   return `
     <section class="page">
       <header class="page-header">
-        <h1 class="page-title">Bantuan & FAQ</h1>
+        <h1 class="page-title">Bantuan &amp; FAQ</h1>
         <p class="page-subtitle">Pertanyaan yang sering diajukan seputar proses servis di DOKTERTECNO.</p>
       </header>
 
@@ -1011,7 +1211,7 @@ function renderHelp() {
           <p>Ada. Masa garansi berbeda-beda untuk setiap jenis layanan, umumnya 14–90 hari.</p>
 
           <h4>Apakah saya harus datang langsung ke workshop?</h4>
-          <p>Tidak harus. Anda bisa menggunakan layanan pickup & delivery sehingga seluruh proses bisa dilakukan dari rumah atau kantor.</p>
+          <p>Tidak harus. Anda bisa menggunakan layanan pickup &amp; delivery sehingga seluruh proses bisa dilakukan dari rumah atau kantor.</p>
 
           <h4>Apa itu layanan darurat / Same-Day?</h4>
           <p>
@@ -1034,7 +1234,7 @@ function renderMembership() {
   return `
     <section class="page">
       <header class="page-header">
-        <h1 class="page-title">Membership & Paket UMKM</h1>
+        <h1 class="page-title">Membership &amp; Paket UMKM</h1>
         <p class="page-subtitle">
           Program keanggotaan dan paket korporat untuk pengguna yang sering melakukan servis atau memiliki banyak perangkat penting.
         </p>
@@ -1054,7 +1254,7 @@ function renderMembership() {
               <ul class="list">
                 ${tier.perks.map((p) => `<li>${p}</li>`).join("")}
               </ul>
-              <button class="btn-ghost btn-full" onclick="navigateTo('#/account/register')">
+              <button class="btn-ghost btn-full" onclick="navigateTo('account/register')">
                 Daftar / Upgrade (simulasi) →
               </button>
             </div>
@@ -1063,7 +1263,7 @@ function renderMembership() {
         ).join("")}
       </div>
 
-      <h3 class="page-title" style="font-size:18px;margin-top:24px;">Paket UMKM & Kantor (B2B)</h3>
+      <h3 class="page-title" style="font-size:18px;margin-top:24px;">Paket UMKM &amp; Kantor (B2B)</h3>
       <p class="page-subtitle">
         Untuk cafe, kantor kecil, studio, sekolah, co-working space, dan venue yang membutuhkan perawatan perangkat secara berkala.
       </p>
@@ -1140,7 +1340,7 @@ function attachLoginHandler() {
     }
 
     messageEl.innerHTML = "";
-    navigateTo("#/account/dashboard");
+    navigateTo("account/dashboard");
   });
 }
 
@@ -1220,7 +1420,7 @@ function renderDashboard() {
         </header>
         <div class="card">
           <div class="card-body">
-            <button class="btn-primary" onclick="navigateTo('#/account/login')">Pergi ke halaman login</button>
+            <button class="btn-primary" onclick="navigateTo('account/login')">Pergi ke halaman login</button>
           </div>
         </div>
       </section>
@@ -1285,7 +1485,7 @@ function renderDashboard() {
       </section>
 
       <section style="margin-top:20px;">
-        <h3 class="page-title" style="font-size:18px;">Service Reminder & Asset B2B (Dummy)</h3>
+        <h3 class="page-title" style="font-size:18px;">Service Reminder &amp; Asset B2B (Dummy)</h3>
         <div class="card">
           <div class="card-body">
             <p>
@@ -1368,7 +1568,7 @@ function renderNotFound() {
       </header>
       <div class="card">
         <div class="card-body">
-          <button class="btn-primary" onclick="navigateTo('#/')">Kembali ke beranda</button>
+          <button class="btn-primary" onclick="navigateTo('')">Kembali ke beranda</button>
         </div>
       </div>
     </section>
@@ -1376,19 +1576,42 @@ function renderNotFound() {
 }
 
 // ==========================
-// UTIL – WHATSAPP
+// UTIL – WHATSAPP & NAV
 // ==========================
 
 function openWhatsApp(msg) {
-  const no = "62812xxxxxxx"; // ganti jika sudah ada nomor resmi
+  const no = "6281263457636"; // ganti jika sudah ada nomor resmi
   const url =
     "https://wa.me/" + no + "?text=" + encodeURIComponent(msg || "Halo DOKTERTECNO, saya ingin bertanya mengenai servis.");
   window.open(url, "_blank");
+}
+
+function initNavToggle() {
+  const btn = document.getElementById("navToggle");
+  const menu = document.getElementById("navMenu");
+  if (!btn || !menu) return;
+
+  btn.addEventListener("click", () => {
+    btn.classList.toggle("open");
+    menu.classList.toggle("open");
+  });
+
+  // Tutup menu saat pindah halaman
+  window.addEventListener("hashchange", () => {
+    btn.classList.remove("open");
+    menu.classList.remove("open");
+  });
 }
 
 // ==========================
 // INIT
 // ==========================
 
-window.addEventListener("hashchange", render);
-window.addEventListener("load", render);
+window.addEventListener("hashchange", () => {
+  render();
+});
+
+window.addEventListener("load", () => {
+  initNavToggle();
+  render();
+});

@@ -1,36 +1,73 @@
 <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="id">
 <head>
   <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>DOKTERTECNO - Servis Elektronik Tanpa Khawatir</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/x-icon" href="Logo_Dokter_tecno_1000-removebg-preview (1).png">
+
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
+
+  
   <header class="site-header">
-    <div class="container header-inner">
-      <div class="brand" onclick="navigateTo('#/')">
-        <span class="brand-logo">🩺</span>
-        <div class="brand-text">
-          <div class="brand-name">DOKTERTECNO</div>
-          <div class="brand-tagline">Dokter Servis Elektronik Anda</div>
-        </div>
-      </div>
-      <nav class="nav">
-        <button onclick="navigateTo('#/services')">Layanan</button>
-        <button onclick="navigateTo('#/pricing')">Harga</button>
-        <button onclick="navigateTo('#/track')">Tracking</button>
-        <button onclick="navigateTo('#/blog')">Blog</button>
-        <button onclick="navigateTo('#/about')">Tentang</button>
-        <button onclick="navigateTo('#/help')">Bantuan</button>
-        <button onclick="navigateTo('#/membership')">Membership</button>
-      </nav>
-      <div class="nav-right">
-        <button class="btn-ghost" onclick="navigateTo('#/account/login')">Login</button>
-        <button class="btn-primary" onclick="navigateTo('#/booking')">Booking Servis</button>
+  <div class="header-inner">
+    <!-- Brand -->
+    <div class="brand" onclick="navigateTo('#/')">
+      <img src="doktertecno.jpeg" class="hero-logo" alt="DOKTERTECNO Logo">
+      <div class="brand-text">
+        <span class="brand-name">DOKTERTECNO</span>
+        <span class="brand-tagline">Dokter Servis Elektronik Anda</span>
       </div>
     </div>
-  </header>
+    
+
+    <!-- Tombol menu (mobile) -->
+    <button class="nav-toggle" id="navToggle" aria-label="Buka menu">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+
+    <!-- Menu utama (desktop) -->
+    <nav class="nav">
+      <button onclick="navigateTo('#/services')">Layanan</button>
+      <button onclick="navigateTo('#/pricing')">Harga</button>
+      <button onclick="navigateTo('#/track')">Tracking</button>
+      <button onclick="navigateTo('#/blog')">Blog</button>
+      <button onclick="navigateTo('#/about')">Tentang</button>
+      <button onclick="navigateTo('#/help')">Bantuan</button>
+      <button onclick="navigateTo('#/membership')">Membership</button>
+    </nav>
+
+    <!-- Aksi kanan (desktop) -->
+    <div class="nav-right">
+      <button class="btn-ghost" onclick="navigateTo('#/account/login')">Login</button>
+      <button class="btn-primary" onclick="navigateTo('#/booking')">Booking Servis</button>
+    </div>
+  </div>
+
+  <!-- Menu versi mobile (muncul saat hamburger diklik) -->
+  <div class="nav-mobile" id="navMenu">
+    <button onclick="navigateTo('#/services')">Layanan</button>
+    <button onclick="navigateTo('#/pricing')">Harga</button>
+    <button onclick="navigateTo('#/track')">Tracking</button>
+    <button onclick="navigateTo('#/blog')">Blog</button>
+    <button onclick="navigateTo('#/about')">Tentang</button>
+    <button onclick="navigateTo('#/help')">Bantuan</button>
+    <button onclick="navigateTo('#/membership')">Membership</button>
+    <hr />
+    <button onclick="navigateTo('#/account/login')">Login</button>
+    <button onclick="navigateTo('#/booking')">Booking Servis</button>
+  </div>
+
+  
+</header>
+
 
   <main id="app" class="main">
     <!-- konten dirender oleh app.js -->
@@ -42,6 +79,8 @@
         <div class="brand-name">DOKTERTECNO</div>
         <div class="brand-tagline">Servis Elektronik Tanpa Khawatir.</div>
       </div>
+
+      
       <div>
         <h4>Navigasi</h4>
         <ul>
@@ -61,7 +100,7 @@
       </div>
       <div>
         <h4>Kontak</h4>
-        <p>WhatsApp: 08xx-xxxx-xxxx</p>
+        <p>WhatsApp: 0812-6345-7636</p>
         <p>Email: support@doktertecno.id</p>
         <p>Operasional: Medan & sekitarnya</p>
       </div>
@@ -70,6 +109,8 @@
       © 2025 DOKTERTECNO. All rights reserved.
     </div>
   </footer>
+  <!-- letakkan DI ATAS app.js -->
+  
 
   <script src="app.js"></script>
 </body>
