@@ -304,10 +304,10 @@ const TEKNISI = [
     photo: "teknisigacor331.jpeg"
   },
   { 
-    name: "Johan Sitorus", 
+    name: "Daffa Sitorus", 
     skill: "Macbook Specialist • Logicboard", 
     rating: 5,
-    photo: "download (3).jpg"
+    photo: "WhatsApp Image 2025-11-14 at 18.47.09.jpeg"
   },
   { 
     name: "Kairi Nasution", 
@@ -365,6 +365,15 @@ const TEKNISI = [
 
 const STORAGE_USER = "doktertecno_user";
 const STORAGE_ORDERS = "doktertecno_orders";
+const STORAGE_LOGGED_IN = "doktertecno_logged_in";
+
+function setLoggedIn(value) {
+  localStorage.setItem(STORAGE_LOGGED_IN, value ? "true" : "false");
+}
+
+function isLoggedIn() {
+  return localStorage.getItem(STORAGE_LOGGED_IN) === "true";
+}
 
 function saveUser(user) {
   localStorage.setItem(STORAGE_USER, JSON.stringify(user));
@@ -414,7 +423,6 @@ function generateReferralCode(name) {
 // ==========================
 
 function navigateTo(hash) {
-  // boleh kirim 'services' atau '#/services'
   if (hash.startsWith("#")) {
     window.location.hash = hash;
   } else {
@@ -437,6 +445,7 @@ function render() {
     case root === "":
       app.innerHTML = renderHome();
       break;
+
     case root.startsWith("services"):
       if (param) {
         app.innerHTML = renderServiceDetail(param);
@@ -444,17 +453,21 @@ function render() {
         app.innerHTML = renderServices();
       }
       break;
+
     case root === "pricing":
       app.innerHTML = renderPricing();
       break;
+
     case root.startsWith("booking"):
       app.innerHTML = renderBooking();
       attachBookingHandler();
       break;
+
     case root === "track":
       app.innerHTML = renderTracking();
       attachTrackingHandler();
       break;
+
     case root.startsWith("blog"):
       if (param) {
         app.innerHTML = renderBlogPost(param);
@@ -462,15 +475,24 @@ function render() {
         app.innerHTML = renderBlogList();
       }
       break;
+
     case root === "about":
       app.innerHTML = renderAbout();
       break;
+
     case root === "help":
       app.innerHTML = renderHelp();
       break;
-    case root === "membership":
-      app.innerHTML = renderMembership();
+
+    // >>> INI ROUTE MEMBERSHIP YANG BENAR <<<
+    case root.startsWith("membership"):
+      if (param === "upgrade") {
+        app.innerHTML = renderMembershipUpgrade();
+      } else {
+        app.innerHTML = renderMembership();
+      }
       break;
+
     case root.startsWith("account"):
       if (param === "login") {
         app.innerHTML = renderLogin();
@@ -485,6 +507,7 @@ function render() {
         attachLoginHandler();
       }
       break;
+
     default:
       app.innerHTML = renderNotFound();
       break;
@@ -497,6 +520,8 @@ function render() {
 
 function renderHome() {
   const user = getUser();
+  const loggedIn = isLoggedIn();
+
   return `
     <section class="page">
       <div class="hero">
@@ -525,7 +550,7 @@ function renderHome() {
           </div>
           <div class="hero-meta">
             ${
-              user
+              user && loggedIn
                 ? `Masuk sebagai <strong>${user.name}</strong> · Kode referral Anda: <strong>${user.referralCode}</strong> · <a href="#/account/dashboard">Lihat dashboard</a>`
                 : `Belum punya akun? <a href="#/account/register">Daftar sekarang &amp; dapatkan kode referral pribadi.</a>`
             }
@@ -563,10 +588,8 @@ function renderHome() {
       <!-- SECTION VIDEO DEMO -->
       <section class="page-section video-header-centered">
         <div class="page-header header-with-cta">
-        
           <div>
             <h2 class="page-title">"Kami menangani masalah elektronik anda sampai ke AKAR-AKARNYA"</h2>
-        
           </div>
         </div>
 
@@ -578,7 +601,6 @@ function renderHome() {
           ></video>
         </div>
       </section>
-
 
       <section class="page-section">
         <div class="page-header">
@@ -643,10 +665,8 @@ function renderHome() {
         </div>
       </section>
 
-      <!-- SECTION TEKNISI TERBAIK -->
-     <section class="page-section" style="margin-top:24px;">
+      <section class="page-section" style="margin-top:24px;">
         <div class="page-header">
-          <!-- ROW: Judul + Tombol di sebelah kanan -->
           <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;">
             <h2 class="page-title" style="margin-bottom:0;">
               Teknisi Terbaik DOKTERTECNO
@@ -661,7 +681,7 @@ function renderHome() {
           </p>
         </div>
 
-                <div class="grid grid-3">
+        <div class="grid grid-3">
           ${TEKNISI.slice(0, 5).map(t => `
             <article class="card teknisi-card">
               <div class="teknisi-photo">
@@ -673,8 +693,8 @@ function renderHome() {
             </article>
           `).join("")}
         </div>
-
       </section>
+    </section>
   `;
 }
 
@@ -844,8 +864,31 @@ function renderPricing() {
 // VIEWS – BOOKING
 // ==========================
 
+let defaultService = "";
+
 function renderBooking() {
-  let defaultService = "";
+  const user = getUser();
+  const loggedIn = isLoggedIn();
+
+  if (!user || !loggedIn) {
+    return `
+      <section class="page">
+        <header class="page-header" id="bookingGuardHeader">
+          <h1 class="page-title">Login Diperlukan</h1>
+          <p class="page-subtitle">Silakan login terlebih dahulu untuk melakukan booking servis.</p>
+        </header>
+
+        <div class="card" style="max-width:480px;margin:0 auto;">
+          <div class="card-body" style="text-align:center;">
+            <button class="btn-primary btn-full" onclick="navigateTo('account/login')">
+              Pergi ke Halaman Login
+            </button>
+          </div>
+        </div>
+      </section>
+    `;
+  }
+
   const match = (window.location.hash || "").match(/service=([^&]+)/);
   if (match) defaultService = decodeURIComponent(match[1]);
 
@@ -1131,7 +1174,6 @@ function renderBlogPost(slug) {
 function renderAbout() {
   return `
     <section class="page">
-      <!-- BAGIAN TENTANG (konten narasi) -->
       <header class="page-header">
         <h1 class="page-title">Tentang DOKTERTECNO</h1>
         <p class="page-subtitle">
@@ -1164,7 +1206,6 @@ function renderAbout() {
         </div>
       </div>
 
-      <!-- BAGIAN PROFIL TEKNISI LENGKAP (18 ORANG) -->
       <section class="page-section">
         <div class="page-header">
           <h2 class="page-title" style="font-size:18px;">Profil Teknisi DOKTERTECNO</h2>
@@ -1173,7 +1214,7 @@ function renderAbout() {
           </p>
         </div>
 
-                <div class="grid grid-3">
+        <div class="grid grid-3">
           ${TEKNISI.map(t => `
             <article class="card teknisi-card">
               <div class="teknisi-photo">
@@ -1185,7 +1226,6 @@ function renderAbout() {
             </article>
           `).join("")}
         </div>
-
       </section>
     </section>
   `;
@@ -1230,6 +1270,18 @@ function renderHelp() {
   `;
 }
 
+// ==== Membership helpers ====
+
+function getMembershipButtonLabel() {
+  return isLoggedIn() ? "Upgrade Paket →" : "Daftar / Upgrade (simulasi) →";
+}
+
+function getMembershipButtonAction() {
+  return isLoggedIn()
+    ? "navigateTo('membership/upgrade')"
+    : "navigateTo('account/register')";
+}
+
 function renderMembership() {
   return `
     <section class="page">
@@ -1254,8 +1306,11 @@ function renderMembership() {
               <ul class="list">
                 ${tier.perks.map((p) => `<li>${p}</li>`).join("")}
               </ul>
-              <button class="btn-ghost btn-full" onclick="navigateTo('account/register')">
-                Daftar / Upgrade (simulasi) →
+              <button 
+                class="btn-ghost btn-full"
+                onclick="${getMembershipButtonAction()}"
+              >
+                ${getMembershipButtonLabel()}
               </button>
             </div>
           </article>
@@ -1292,14 +1347,72 @@ function renderMembership() {
   `;
 }
 
+function renderMembershipUpgrade() {
+  if (!isLoggedIn()) {
+    navigateTo("account/login");
+    return "";
+  }
+
+  return `
+    <section class="page">
+      <header class="page-header">
+        <h1 class="page-title">Upgrade Membership</h1>
+        <p class="page-subtitle">Pilih paket yang ingin Anda upgrade.</p>
+      </header>
+
+      <div class="grid grid-3">
+        <div class="card">
+          <h3>Silver</h3>
+          <ul class="list">
+            <li>Diskon 5% servis</li>
+            <li>Antrian prioritas</li>
+          </ul>
+          <button class="btn-primary btn-full" onclick="applyUpgrade('Silver')">
+            Upgrade ke Silver
+          </button>
+        </div>
+
+        <div class="card">
+          <h3>Gold</h3>
+          <ul class="list">
+            <li>Diskon 10%</li>
+            <li>Pickup prioritas</li>
+            <li>Konsultasi teknis gratis</li>
+          </ul>
+          <button class="btn-primary btn-full" onclick="applyUpgrade('Gold')">
+            Upgrade ke Gold
+          </button>
+        </div>
+
+        <div class="card">
+          <h3>Platinum</h3>
+          <ul class="list">
+            <li>Diskon 15%</li>
+            <li>Antrian VVIP</li>
+            <li>Backup teknisi on-site</li>
+          </ul>
+          <button class="btn-primary btn-full" onclick="applyUpgrade('Platinum')">
+            Upgrade ke Platinum
+          </button>
+        </div>
+      </div>
+    </section>
+  `;
+}
+
 // ==========================
 // VIEWS – AUTH & DASHBOARD
 // ==========================
 
 function renderLogin() {
+  if (isLoggedIn()) {
+    navigateTo("membership");
+    return "";
+  }
+
   return `
     <section class="page">
-      <header class="page-header">
+      <header class="page-header" id="loginPageHeader">
         <h1 class="page-title">Login Akun</h1>
         <p class="page-subtitle">Akses dashboard untuk melihat riwayat servis, poin referral, dan status perangkat Anda.</p>
       </header>
@@ -1336,15 +1449,22 @@ function attachLoginHandler() {
     if (!user || user.email !== email || user.password !== password) {
       messageEl.innerHTML =
         '<span class="alert alert-error">Email atau password tidak sesuai (simulasi). Pastikan Anda sudah mendaftar.</span>';
+      setLoggedIn(false);
       return;
     }
 
+    setLoggedIn(true);
     messageEl.innerHTML = "";
     navigateTo("account/dashboard");
   });
 }
 
 function renderRegister() {
+  if (isLoggedIn()) {
+    navigateTo("membership");
+    return "";
+  }
+
   return `
     <section class="page">
       <header class="page-header">
@@ -1411,7 +1531,9 @@ function attachRegisterHandler() {
 
 function renderDashboard() {
   const user = getUser();
-  if (!user) {
+  const loggedIn = isLoggedIn();
+
+  if (!user || !loggedIn) {
     return `
       <section class="page">
         <header class="page-header">
@@ -1555,6 +1677,15 @@ function renderDashboard() {
   `;
 }
 
+function applyUpgrade(tier) {
+  const user = getUser();
+  if (!user) return;
+  user.tier = tier;
+  saveUser(user);
+  alert("Upgrade berhasil ke paket " + tier);
+  navigateTo("membership");
+}
+
 // ==========================
 // VIEWS – 404
 // ==========================
@@ -1580,11 +1711,18 @@ function renderNotFound() {
 // ==========================
 
 function openWhatsApp(msg) {
-  const no = "6281263457636"; // ganti jika sudah ada nomor resmi
+  const no = "6281263457636";
   const url =
     "https://wa.me/" + no + "?text=" + encodeURIComponent(msg || "Halo DOKTERTECNO, saya ingin bertanya mengenai servis.");
   window.open(url, "_blank");
 }
+
+function logout() {
+  setLoggedIn(false);
+  updateNavAuthButton();
+  navigateTo("account/login");
+}
+
 
 function initNavToggle() {
   const btn = document.getElementById("navToggle");
@@ -1596,22 +1734,64 @@ function initNavToggle() {
     menu.classList.toggle("open");
   });
 
-  // Tutup menu saat pindah halaman
   window.addEventListener("hashchange", () => {
     btn.classList.remove("open");
     menu.classList.remove("open");
   });
 }
 
+function updateNavAuthButton() {
+  const btn = document.getElementById("navAuthBtn");
+  if (!btn) return;
+
+  if (isLoggedIn()) {
+    btn.textContent = "Logout";
+    btn.onclick = () => logout();
+  } else {
+    btn.textContent = "Login";
+    btn.onclick = () => navigateTo("account/login");
+  }
+}
+
+// ==========================
+// AUTH BUTTON CONTROLLER
+// ==========================
+function updateAuthButtons() {
+  const logged = isLoggedIn();
+
+  // Desktop buttons
+  const btnLogin = document.getElementById("btnLogin");
+  const btnLogout = document.getElementById("btnLogout");
+
+  if (btnLogin) btnLogin.style.display = logged ? "none" : "inline-flex";
+  if (btnLogout) btnLogout.style.display = logged ? "inline-flex" : "none";
+
+  // Mobile buttons
+  const btnLoginMobile = document.getElementById("btnLoginMobile");
+  const btnLogoutMobile = document.getElementById("btnLogoutMobile");
+
+  if (btnLoginMobile) btnLoginMobile.style.display = logged ? "none" : "block";
+  if (btnLogoutMobile) btnLogoutMobile.style.display = logged ? "block" : "none";
+}
+
+
+
+
+
 // ==========================
 // INIT
 // ==========================
 
-window.addEventListener("hashchange", () => {
-  render();
-});
 
 window.addEventListener("load", () => {
   initNavToggle();
   render();
+  updateAuthButtons();
 });
+
+window.addEventListener("hashchange", () => {
+  render();
+  updateAuthButtons();
+});
+
+

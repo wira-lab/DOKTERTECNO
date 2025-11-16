@@ -1238,6 +1238,100 @@ code {
   }
 }
 
+/* FORM REGISTER MENJADI 1 KOLOM */
+.form-row {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.form-row > div {
+  width: 100%;
+}
+
+/* PAKSA REGISTER 1 KOLOM DI SEMUA DEVICE */
+#registerForm .form-row {
+  flex-direction: column !important;
+}
+
+#registerForm .form-row > div {
+  width: 100% !important;
+  flex: none !important;
+}
+
+/* === FORM REGISTER LEBIH KECIL & TENGAH === */
+#registerForm {
+  width: 100%;
+  max-width: 640px;   /* lebar maksimum form */
+  margin: 0 auto;     /* supaya form berada di tengah card/page */
+}
+
+/* Kalau di desktop besar, bisa dibuat sedikit lebih ramping lagi */
+@media (min-width: 1200px) {
+  #registerForm {
+    max-width: 520px;
+  }
+}
+/* === FORM REGISTER, LOGIN, TRACKING — LEBAR RAPI & TENGAH === */
+
+/* Register */
+#registerForm {
+  width: 100%;
+  max-width: 640px;
+  margin: 0 auto;
+}
+
+@media (min-width: 1200px) {
+  #registerForm {
+    max-width: 520px;
+  }
+}
+
+/* Login */
+#loginForm {
+  width: 100%;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+@media (min-width: 1200px) {
+  #loginForm {
+    max-width: 420px;
+  }
+}
+
+
+
+/* Pastikan input tidak melebar penuh card */
+#registerForm .input,
+#loginForm .input,
+#trackForm .input {
+  width: 100%;
+}
+
+/* Untuk tombol full width tetap rapi */
+#registerForm .btn-full,
+#loginForm .btn-full,
+#trackForm .btn-full {
+  width: 100%;
+}
+
+
+/* CENTER UNTUK JUDUL & SUBTITLE LOGIN */
+#loginPageHeader {
+  text-align: center;
+  width: 100%;
+}
+
+#loginPageHeader .page-title {
+  text-align: center;
+}
+
+#loginPageHeader .page-subtitle {
+  text-align: center;
+  margin: 0 auto;
+  max-width: 520px; /* agar tidak terlalu panjang */
+}
 
 
 /* ===========================
