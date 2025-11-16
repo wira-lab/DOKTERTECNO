@@ -990,6 +990,10 @@ function renderBooking() {
     </section>
   `;
 }
+function getServiceNameFromSlug(slug) {
+  const svc = SERVICES.find(s => s.slug === slug);
+  return svc ? svc.name : slug;
+}
 
 function attachBookingHandler() {
   const form = document.getElementById("bookingForm");
@@ -999,6 +1003,7 @@ function attachBookingHandler() {
   form.addEventListener("submit", (e) => {
     e.preventDefault();
     const formData = new FormData(form);
+
     const order = {
       id: generateOrderId(),
       name: formData.get("name"),
@@ -1013,13 +1018,60 @@ function attachBookingHandler() {
       status: "Pickup terjadwal",
       createdAt: new Date().toISOString(),
     };
+
     const orders = getOrders();
     orders.push(order);
     saveOrders(orders);
-    messageEl.innerHTML = `<span class="alert alert-success">Booking berhasil! ID Servis Anda: <strong>${order.id}</strong>. Gunakan ID ini untuk tracking.</span>`;
+
+    // Siapkan pesan WhatsApp berisi detail booking
+    const serviceName = getServiceNameFromSlug(order.category);
+    const waMessage = [
+      "Halo DOKTERTECNO, saya baru saja melakukan booking servis lewat website.",
+      "",
+      "Berikut detailnya:",
+      `ID Servis     : ${order.id}`,
+      `Nama          : ${order.name}`,
+      `Kontak        : ${order.contact}`,
+      `Kota          : ${order.city}`,
+      `Kategori      : ${serviceName}`,
+      `Keluhan       : ${order.issue}`,
+      `Jadwal pickup : ${order.date} pukul ${order.time}`,
+      order.emergency ? "(✓) Layanan prioritas / emergency" : "",
+      "",
+      "Mohon konfirmasi ya, terima kasih. 🙏"
+    ].join("\n");
+
+    // Tampilkan pesan sukses + tombol ke WhatsApp
+    messageEl.innerHTML = `
+  <div class="alert alert-success" style="display:flex;justify-content:space-between;align-items:center;gap:12px;">
+    <span>
+      Booking berhasil! ID Servis Anda:
+      <strong>${order.id}</strong>.
+      Simpan ID ini untuk tracking status perangkat Anda.
+    </span>
+
+    <button 
+      class="btn-ghost"
+      style="white-space:nowrap;"
+      onclick="openWhatsApp('Halo, saya ingin konfirmasi booking dengan ID Servis: ${order.id}')">
+      Lanjutkan ke WhatsApp untuk konfirmasi →
+    </button>
+  </div>
+`;
+
+
+    // Hubungkan tombol ke WhatsApp
+    const waBtn = document.getElementById("btnWAAfterBooking");
+    if (waBtn) {
+      waBtn.addEventListener("click", () => {
+        openWhatsApp(waMessage);
+      });
+    }
+
     form.reset();
   });
 }
+
 
 // ==========================
 // VIEWS – TRACKING
