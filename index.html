@@ -16,7 +16,6 @@
   
   <header class="site-header">
   <div class="header-inner">
-
     <!-- Brand -->
     <div class="brand" onclick="navigateTo('#/')">
       <img src="doktertecno.jpeg" class="hero-logo" alt="DOKTERTECNO Logo">
@@ -28,7 +27,9 @@
 
     <!-- Tombol menu (mobile) -->
     <button class="nav-toggle" id="navToggle" aria-label="Buka menu">
-      <span></span><span></span><span></span>
+      <span></span>
+      <span></span>
+      <span></span>
     </button>
 
     <!-- Menu utama (desktop) -->
@@ -40,12 +41,19 @@
       <button onclick="navigateTo('#/about')">Tentang</button>
       <button onclick="navigateTo('#/help')">Bantuan</button>
       <button onclick="navigateTo('#/membership')">Membership</button>
+
+      <!-- DASHBOARD (muncul hanya saat login) -->
+      <button
+        id="btnDashboard"
+        style="display:none;"
+        onclick="navigateTo('account/dashboard')">
+        Dashboard
+      </button>
     </nav>
 
     <!-- Aksi kanan (desktop) -->
     <div class="nav-right">
-
-      <!-- LOGIN (tampil saat belum login) -->
+      <!-- tombol login -->
       <button
         class="btn-ghost"
         id="btnLogin"
@@ -53,7 +61,7 @@
         Login
       </button>
 
-      <!-- LOGOUT (tampil saat sudah login) -->
+      <!-- tombol logout -->
       <button
         class="btn-ghost"
         id="btnLogout"
@@ -62,14 +70,14 @@
         Logout
       </button>
 
-      <!-- Booking -->
+      <!-- tetap ada booking -->
       <button class="btn-primary" onclick="navigateTo('booking')">
         Booking Servis
       </button>
     </div>
   </div>
 
-  <!-- Menu versi mobile -->
+  <!-- Menu versi mobile (muncul saat hamburger diklik) -->
   <div class="nav-mobile" id="navMenu">
     <button onclick="navigateTo('#/services')">Layanan</button>
     <button onclick="navigateTo('#/pricing')">Harga</button>
@@ -79,19 +87,30 @@
     <button onclick="navigateTo('#/help')">Bantuan</button>
     <button onclick="navigateTo('#/membership')">Membership</button>
 
-    <hr />
-
-    <!-- LOGIN mobile -->
-    <button id="btnLoginMobile" onclick="navigateTo('account/login')">
-      Login
+    <!-- DASHBOARD MOBILE (hanya saat login) -->
+    <button
+      id="btnDashboardMobile"
+      style="display:none;"
+      onclick="navigateTo('account/dashboard')">
+      Dashboard
     </button>
 
-    <!-- LOGOUT mobile -->
-    <button id="btnLogoutMobile" onclick="logout()" style="display:none;">
+    <hr />
+
+    <!-- LOGIN / LOGOUT MOBILE -->
+    <button
+      id="btnLoginMobile"
+      onclick="navigateTo('account/login')">
+      Login
+    </button>
+    <button
+      id="btnLogoutMobile"
+      style="display:none;"
+      onclick="logout()">
       Logout
     </button>
 
-    <button onclick="navigateTo('#/booking')">Booking Servis</button>
+    <button onclick="navigateTo('booking')">Booking Servis</button>
   </div>
 </header>
 

@@ -1719,11 +1719,11 @@ function openWhatsApp(msg) {
 
 function logout() {
   setLoggedIn(false);
-  updateNavAuthButton();
-  navigateTo("account/login");
+  updateAuthButtons();
+  navigateTo(""); // balik ke beranda setelah logout
 }
 
-
+// Toggle menu hamburger
 function initNavToggle() {
   const btn = document.getElementById("navToggle");
   const menu = document.getElementById("navMenu");
@@ -1734,64 +1734,48 @@ function initNavToggle() {
     menu.classList.toggle("open");
   });
 
+  // Tutup menu saat pindah halaman
   window.addEventListener("hashchange", () => {
     btn.classList.remove("open");
     menu.classList.remove("open");
   });
 }
 
-function updateNavAuthButton() {
-  const btn = document.getElementById("navAuthBtn");
-  if (!btn) return;
-
-  if (isLoggedIn()) {
-    btn.textContent = "Logout";
-    btn.onclick = () => logout();
-  } else {
-    btn.textContent = "Login";
-    btn.onclick = () => navigateTo("account/login");
-  }
-}
-
-// ==========================
-// AUTH BUTTON CONTROLLER
-// ==========================
+// Tampilkan / sembunyikan Login, Logout, Dashboard (desktop + mobile)
 function updateAuthButtons() {
   const logged = isLoggedIn();
 
-  // Desktop buttons
+  // Desktop
   const btnLogin = document.getElementById("btnLogin");
   const btnLogout = document.getElementById("btnLogout");
+  const btnDash = document.getElementById("btnDashboard");
 
   if (btnLogin) btnLogin.style.display = logged ? "none" : "inline-flex";
   if (btnLogout) btnLogout.style.display = logged ? "inline-flex" : "none";
+  if (btnDash) btnDash.style.display = logged ? "inline-flex" : "none";
 
-  // Mobile buttons
+  // Mobile
   const btnLoginMobile = document.getElementById("btnLoginMobile");
   const btnLogoutMobile = document.getElementById("btnLogoutMobile");
+  const btnDashMobile = document.getElementById("btnDashboardMobile");
 
   if (btnLoginMobile) btnLoginMobile.style.display = logged ? "none" : "block";
   if (btnLogoutMobile) btnLogoutMobile.style.display = logged ? "block" : "none";
+  if (btnDashMobile) btnDashMobile.style.display = logged ? "block" : "none";
 }
-
-
-
-
 
 // ==========================
 // INIT
 // ==========================
-
-
-window.addEventListener("load", () => {
-  initNavToggle();
-  render();
-  updateAuthButtons();
-});
 
 window.addEventListener("hashchange", () => {
   render();
   updateAuthButtons();
 });
 
+window.addEventListener("load", () => {
+  initNavToggle();
+  render();
+  updateAuthButtons();
+});
 
